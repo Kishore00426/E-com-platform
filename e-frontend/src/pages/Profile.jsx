@@ -21,6 +21,7 @@ import {
     Phone
 } from 'lucide-react';
 import { useWishlist } from '../context/WishlistContext';
+import { API_URL, UPLOADS_URL } from '../apiConfig';
 
 export default function Profile() {
     const [activeTab, setActiveTab] = useState('orders');
@@ -57,7 +58,7 @@ export default function Profile() {
     const fetchOrders = async () => {
         setLoadingOrders(true);
         try {
-            const response = await fetch('http://localhost:4200/api/orders', {
+            const response = await fetch(`${API_URL}/api/orders`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             if (response.ok) {
@@ -82,7 +83,7 @@ export default function Profile() {
         setStatusMessage(null);
 
         try {
-            const response = await fetch('http://localhost:4200/api/auth/profile', {
+            const response = await fetch(`${API_URL}/api/auth/profile`, {
                 method: 'PUT',
                 headers: { 
                     'Content-Type': 'application/json',
@@ -215,7 +216,7 @@ export default function Profile() {
                     name: product.name,
                     price: item.price,
                     date: formatDate(order.created_at),
-                    image: product.images?.[0] ? `http://localhost:4200/uploads/${product.images[0]}` : null
+                    image: product.images?.[0] ? `${UPLOADS_URL}/${product.images[0]}` : null
                 });
             }
         });
@@ -382,7 +383,7 @@ export default function Profile() {
                                                                                 <div className="w-16 h-16 bg-gray-50 rounded-xl overflow-hidden shrink-0 border border-gray-100">
                                                                                     {item.products?.images?.[0] && (
                                                                                         <img 
-                                                                                            src={`http://localhost:4200/uploads/${item.products.images[0]}`} 
+                                                                                            src={`${UPLOADS_URL}/${item.products.images[0]}`} 
                                                                                             alt={item.products.name} 
                                                                                             className="w-full h-full object-cover" 
                                                                                         />
@@ -524,7 +525,7 @@ export default function Profile() {
                                                     <div className="aspect-square bg-gray-50 relative overflow-hidden">
                                                         <Link to={`/products/${item.id}`}>
                                                             <img 
-                                                                src={item.images?.[0] ? `http://localhost:4200/uploads/${item.images[0]}` : ""} 
+                                                                src={item.images?.[0] ? `${UPLOADS_URL}/${item.images[0]}` : ""} 
                                                                 alt={item.name} 
                                                                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
                                                             />

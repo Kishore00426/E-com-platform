@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Plus, Trash2, Edit3, Layers, ChevronDown, ChevronUp, Subtitles, X } from 'lucide-react';
+import { API_URL } from '../../apiConfig';
 
 export default function CategoryManager() {
     const [categories, setCategories] = useState([]);
@@ -18,7 +19,7 @@ export default function CategoryManager() {
 
     const fetchCategories = async () => {
         try {
-            const res = await fetch('http://localhost:4200/api/categories');
+            const res = await fetch(`${API_URL}/api/categories`);
             const data = await res.json();
             setCategories(data);
         } catch (err) { console.error(err); }
@@ -27,7 +28,7 @@ export default function CategoryManager() {
 
     const fetchSubcategories = async (categoryId) => {
         try {
-            const res = await fetch(`http://localhost:4200/api/categories/${categoryId}/subcategories`);
+            const res = await fetch(`${API_URL}/api/categories/${categoryId}/subcategories`);
             const data = await res.json();
             setSubcategories(data);
         } catch (err) { console.error(err); }
@@ -39,7 +40,7 @@ export default function CategoryManager() {
         e.preventDefault();
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch('http://localhost:4200/api/categories', {
+            const res = await fetch(`${API_URL}/api/categories`, {
                 method: 'POST',
                 headers: { 
                     'Content-Type': 'application/json',
@@ -58,7 +59,7 @@ export default function CategoryManager() {
         if (!newSub) return;
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch('http://localhost:4200/api/categories/subcategories', {
+            const res = await fetch(`${API_URL}/api/categories/subcategories`, {
                 method: 'POST',
                 headers: { 
                     'Content-Type': 'application/json',
@@ -75,7 +76,7 @@ export default function CategoryManager() {
     const handleUpdateCategory = async (id) => {
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch(`http://localhost:4200/api/categories/${id}`, {
+            const res = await fetch(`${API_URL}/api/categories/${id}`, {
                 method: 'PUT',
                 headers: { 
                     'Content-Type': 'application/json',
@@ -92,7 +93,7 @@ export default function CategoryManager() {
     const handleUpdateSubcategory = async (id, categoryId) => {
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch(`http://localhost:4200/api/categories/subcategories/${id}`, {
+            const res = await fetch(`${API_URL}/api/categories/subcategories/${id}`, {
                 method: 'PUT',
                 headers: { 
                     'Content-Type': 'application/json',
@@ -110,7 +111,7 @@ export default function CategoryManager() {
         if (!window.confirm("Delete this category? This will delete all subcategories!")) return;
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch(`http://localhost:4200/api/categories/${id}`, {
+            const res = await fetch(`${API_URL}/api/categories/${id}`, {
                 method: 'DELETE',
                 headers: { Authorization: `Bearer ${token}` }
             });
@@ -122,7 +123,7 @@ export default function CategoryManager() {
     const handleDeleteSubcategory = async (id, categoryId) => {
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch(`http://localhost:4200/api/categories/subcategories/${id}`, {
+            const res = await fetch(`${API_URL}/api/categories/subcategories/${id}`, {
                 method: 'DELETE',
                 headers: { Authorization: `Bearer ${token}` }
             });

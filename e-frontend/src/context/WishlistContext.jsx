@@ -1,5 +1,6 @@
 import { createContext, useState, useContext, useEffect, useCallback } from 'react';
 import { useAuth } from './AuthContext';
+import { API_URL } from '../apiConfig';
 
 const WishlistContext = createContext();
 
@@ -12,7 +13,7 @@ export function WishlistProvider({ children }) {
     if (!isLoggedIn || !token) return;
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:4200/api/wishlist', {
+      const response = await fetch(`${API_URL}/api/wishlist`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       if (response.ok) {
@@ -46,7 +47,7 @@ export function WishlistProvider({ children }) {
       // Remove Optimistically
       setWishlist(prev => prev.filter(item => item.id !== product.id));
       try {
-        await fetch(`http://localhost:4200/api/wishlist/remove/${product.id}`, {
+        await fetch(`${API_URL}/api/wishlist/remove/${product.id}`, {
           method: 'DELETE',
           headers: { 'Authorization': `Bearer ${token}` }
         });
@@ -58,7 +59,7 @@ export function WishlistProvider({ children }) {
       // Add Optimistically
       setWishlist(prev => [...prev, product]);
       try {
-        const response = await fetch('http://localhost:4200/api/wishlist/add', {
+        const response = await fetch(`${API_URL}/api/wishlist/add`, {
           method: 'POST',
           headers: { 
             'Content-Type': 'application/json',

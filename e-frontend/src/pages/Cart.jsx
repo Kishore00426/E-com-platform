@@ -1,6 +1,7 @@
 import { useCart } from "../context/CartContext";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { UPLOADS_URL } from "../apiConfig";
 import { Trash2, Minus, Plus, ShoppingBag } from "lucide-react";
 
 export default function Cart() {
@@ -71,7 +72,7 @@ export default function Cart() {
                       <div className="w-24 h-24 md:w-32 md:h-32 bg-gray-50 rounded-2xl overflow-hidden shrink-0 border border-gray-100 relative group-hover:shadow-md transition-all duration-500">
                         {item.image ? (
                           <img 
-                            src={`http://localhost:4200/uploads/${item.image}`} 
+                            src={`${UPLOADS_URL}/${item.image}`} 
                             alt={item.name} 
                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
                           />

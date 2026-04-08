@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { BarChart3, TrendingUp, Package, DollarSign, Users } from 'lucide-react';
+import { API_URL } from '../../apiConfig';
 
 export default function Reports() {
     const [stats, setStats] = useState(null);
@@ -9,7 +10,7 @@ export default function Reports() {
         const fetchStats = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await fetch('http://localhost:4200/api/admin/stats', {
+                const response = await fetch(`${API_URL}/api/admin/stats`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 

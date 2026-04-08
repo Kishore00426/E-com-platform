@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_URL } from '../apiConfig';
 
 export default function TermsCondition() {
   const [content, setContent] = useState('');
@@ -7,7 +8,7 @@ export default function TermsCondition() {
   useEffect(() => {
     const fetchTermsCondition = async () => {
       try {
-        const res = await fetch('http://localhost:4200/api/site-settings/terms');
+        const res = await fetch(`${API_URL}/api/site-settings/terms`);
         if (res.ok) {
           const data = await res.json();
           setContent(data.content);

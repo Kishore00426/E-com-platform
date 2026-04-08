@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Plus, Trash2, Edit3, Package, Image as ImageIcon, Tag, Hash, DollarSign, Subtitles, Upload, X } from 'lucide-react';
+import { API_URL, UPLOADS_URL } from '../../apiConfig';
 
 export default function ProductManager() {
     const [products, setProducts] = useState([]);
@@ -17,8 +18,8 @@ export default function ProductManager() {
     const fetchData = async () => {
         try {
             const [prodRes, catRes] = await Promise.all([
-                fetch('http://localhost:4200/api/products').then(res => res.json()),
-                fetch('http://localhost:4200/api/categories').then(res => res.json())
+                fetch(`${API_URL}/api/products`).then(res => res.json()),
+                fetch(`${API_URL}/api/categories`).then(res => res.json())
             ]);
             setProducts(prodRes);
             setCategories(catRes);
@@ -30,7 +31,7 @@ export default function ProductManager() {
         if (newProd.category_id) {
             const fetchSubs = async () => {
                 try {
-                    const res = await fetch(`http://localhost:4200/api/categories/${newProd.category_id}/subcategories`);
+                    const res = await fetch(`${API_URL}/api/categories/${newProd.category_id}/subcategories`);
                     if (res.ok) {
                         const data = await res.json();
                         setSubcategories(data);
@@ -68,7 +69,7 @@ export default function ProductManager() {
                 formData.append('images', selectedFiles[i]);
             }
 
-            const response = await fetch('http://localhost:4200/api/products', {
+            const response = await fetch(`${API_URL}/api/products`, {
                 method: 'POST',
                 headers: { 
                     Authorization: `Bearer ${token}`
@@ -89,7 +90,7 @@ export default function ProductManager() {
         if (!window.confirm("Delete this product?")) return;
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`http://localhost:4200/api/products/${id}`, {
+            const response = await fetch(`${API_URL}/api/products/${id}`, {
                 method: 'DELETE',
                 headers: { Authorization: `Bearer ${token}` }
             });
@@ -251,7 +252,7 @@ export default function ProductManager() {
                                         <div className="w-24 h-24 bg-white shadow-md rounded-3xl border border-gray-100 overflow-hidden flex items-center justify-center p-1">
                                             {prod.images?.[0] ? (
                                                 <img 
-                                                    src={prod.images[0].startsWith('http') ? prod.images[0] : `http://localhost:4200/uploads/${prod.images[0]}`} 
+                                                    src={prod.images[0].startsWith('http') ? prod.images[0] : `${UPLOADS_URL}/${prod.images[0]}`} 
                                                     className="w-full h-full object-cover rounded-2xl" 
                                                 />
                                             ) : (

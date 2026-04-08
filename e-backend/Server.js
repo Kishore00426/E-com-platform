@@ -41,7 +41,7 @@ app.get('/api/health', async (req, res) => {
 });
 
 app.get('/', (req, res) => {
-    res.send("Backend running on port 4200!");
+    res.send(`Backend running on port ${PORT}!`);
 });
 
 const PORT = process.env.PORT || 5000;

@@ -14,6 +14,7 @@ import {
     TrendingUp,
     Filter
 } from 'lucide-react';
+import { API_URL, UPLOADS_URL } from '../../apiConfig';
 
 const OrderManager = () => {
     const [orders, setOrders] = useState([]);
@@ -26,7 +27,7 @@ const OrderManager = () => {
         setLoading(true);
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch('http://localhost:4200/api/orders/admin/all', {
+            const response = await fetch(`${API_URL}/api/orders/admin/all`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             if (response.ok) {
@@ -48,7 +49,7 @@ const OrderManager = () => {
         setUpdatingStatus(orderId);
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`http://localhost:4200/api/orders/admin/status/${orderId}`, {
+            const response = await fetch(`${API_URL}/api/orders/admin/status/${orderId}`, {
                 method: 'PUT',
                 headers: { 
                     'Content-Type': 'application/json',
@@ -296,7 +297,7 @@ const OrderManager = () => {
                                                         <div className="w-20 h-20 bg-gray-50 rounded-2xl overflow-hidden border border-gray-50 shrink-0">
                                                             {item.products?.images?.[0] && (
                                                                 <img 
-                                                                    src={`http://localhost:4200/uploads/${item.products.images[0]}`} 
+                                                                    src={`${UPLOADS_URL}/${item.products.images[0]}`} 
                                                                     alt={item.products.name} 
                                                                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
                                                                 />

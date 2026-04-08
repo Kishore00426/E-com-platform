@@ -3,6 +3,7 @@ import { ShoppingBag, ArrowLeft, CheckCircle, Truck, CreditCard, ChevronRight, U
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useAuth } from '../context/AuthContext';
+import { API_URL, UPLOADS_URL } from '../apiConfig';
 
 export default function Checkout() {
   const { cart, clearCart } = useCart();
@@ -34,7 +35,7 @@ export default function Checkout() {
 
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:4200/api/orders', {
+      const response = await fetch(`${API_URL}/api/orders`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -193,7 +194,7 @@ export default function Checkout() {
                 {cart.map((item) => (
                   <div key={item.id} className="flex gap-4 items-center">
                     <div className="w-16 h-16 bg-gray-50 rounded-xl overflow-hidden shrink-0 border border-gray-100">
-                      <img src={`http://localhost:4200/uploads/${item.image}`} alt={item.name} className="w-full h-full object-cover" />
+                      <img src={`${UPLOADS_URL}/${item.image}`} alt={item.name} className="w-full h-full object-cover" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <h4 className="font-bold text-sm text-gray-900 truncate">{item.name}</h4>

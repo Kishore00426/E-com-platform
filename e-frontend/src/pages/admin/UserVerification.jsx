@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { CheckCircle, XCircle, Mail, User, ShieldCheck } from 'lucide-react';
+import { API_URL } from '../../apiConfig';
 
 export default function UserVerification() {
     const [users, setUsers] = useState([]);
@@ -8,7 +9,7 @@ export default function UserVerification() {
     const fetchUsers = async () => {
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch('http://localhost:4200/api/admin/users', {
+            const res = await fetch(`${API_URL}/api/admin/users`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             const data = await res.json();
@@ -25,7 +26,7 @@ export default function UserVerification() {
     const toggleApproval = async (id, currentStatus) => {
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch(`http://localhost:4200/api/admin/users/${id}/approve`, {
+            const res = await fetch(`${API_URL}/api/admin/users/${id}/approve`, {
                 method: 'PUT',
                 headers: { 
                     'Content-Type': 'application/json',

@@ -1,5 +1,6 @@
 import { createContext, useState, useContext, useEffect, useCallback } from 'react';
 import { useAuth } from './AuthContext';
+import { API_URL } from '../apiConfig';
 
 const CartContext = createContext();
 
@@ -13,7 +14,7 @@ export function CartProvider({ children }) {
     setLoading(true);
     try {
       console.log("CartContext: Fetching cart for user...");
-      const response = await fetch('http://localhost:4200/api/cart', {
+      const response = await fetch(`${API_URL}/api/cart`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       
@@ -91,7 +92,7 @@ export function CartProvider({ children }) {
 
       try {
         console.log("CartContext: Adding to backend cart:", { productId: product.id });
-        const response = await fetch('http://localhost:4200/api/cart/add', {
+        const response = await fetch(`${API_URL}/api/cart/add`, {
           method: 'POST',
           headers: { 
             'Content-Type': 'application/json',
@@ -138,7 +139,7 @@ export function CartProvider({ children }) {
       });
 
       try {
-        const response = await fetch('http://localhost:4200/api/cart/update', {
+        const response = await fetch(`${API_URL}/api/cart/update`, {
           method: 'PUT',
           headers: { 
             'Content-Type': 'application/json',
@@ -175,7 +176,7 @@ export function CartProvider({ children }) {
       setCart((prevCart) => prevCart.filter(item => item.id !== productId));
 
       try {
-        const response = await fetch(`http://localhost:4200/api/cart/remove/${productId}`, {
+        const response = await fetch(`${API_URL}/api/cart/remove/${productId}`, {
           method: 'DELETE',
           headers: { 'Authorization': `Bearer ${token}` }
         });
@@ -200,7 +201,7 @@ export function CartProvider({ children }) {
   const clearCart = async () => {
     if (isLoggedIn) {
       try {
-        const response = await fetch('http://localhost:4200/api/cart/clear', {
+        const response = await fetch(`${API_URL}/api/cart/clear`, {
           method: 'DELETE',
           headers: { 'Authorization': `Bearer ${token}` }
         });

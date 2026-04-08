@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { useWishlist } from "../context/WishlistContext";
+import { API_URL, UPLOADS_URL } from "../apiConfig";
 import { Heart, Search, SlidersHorizontal } from "lucide-react";
 
 export default function Productspage() {
@@ -18,7 +19,7 @@ export default function Productspage() {
 
   const fetchProducts = async () => {
     try {
-      const res = await fetch('http://localhost:4200/api/products');
+      const res = await fetch(`${API_URL}/api/products`);
       const data = await res.json();
       setProducts(data);
     } catch (err) {
@@ -203,7 +204,7 @@ export default function Productspage() {
                 <div className="h-72 bg-gray-50 relative overflow-hidden">
                   {product.images && product.images.length > 0 ? (
                     <img 
-                      src={`http://localhost:4200/uploads/${product.images[0]}`} 
+                      src={`${UPLOADS_URL}/${product.images[0]}`} 
                       alt={product.name}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Save, Info, Shield, Plus, Trash2, Image, Type, Users } from 'lucide-react';
+import { API_URL } from '../../apiConfig';
 
 export default function SiteSettings() {
     const [settings, setSettings] = useState({ privacy_policy: '', terms_condition: '' });
@@ -13,7 +14,7 @@ export default function SiteSettings() {
         const fetchSettings = async () => {
             try {
                 // Fetch public about data to populate the CMS form
-                const resAbout = await fetch('http://localhost:4200/api/site-settings/about');
+                const resAbout = await fetch(`${API_URL}/api/site-settings/about`);
                 if (resAbout.ok) {
                     const data = await resAbout.json();
                     setAboutPageData(data);
@@ -40,7 +41,7 @@ export default function SiteSettings() {
                 ...settings,
                 about_page_data: aboutPageData
             };
-            const response = await fetch('http://localhost:4200/api/admin/settings', {
+            const response = await fetch(`${API_URL}/api/admin/settings`, {
                 method: 'PUT',
                 headers: { 
                     'Content-Type': 'application/json',

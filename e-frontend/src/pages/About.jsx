@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { API_URL } from '../apiConfig';
 
 export default function About() {
     const [aboutData, setAboutData] = useState(null);
@@ -8,7 +9,7 @@ export default function About() {
     useEffect(() => {
         const fetchAboutData = async () => {
             try {
-                const res = await fetch('http://localhost:4200/api/site-settings/about');
+                const res = await fetch(`${API_URL}/api/site-settings/about`);
                 if (!res.ok) throw new Error("Failed to fetch about data");
                 const data = await res.json();
                 setAboutData(data);

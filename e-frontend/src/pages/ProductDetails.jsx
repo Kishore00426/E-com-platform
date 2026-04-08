@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { useWishlist } from "../context/WishlistContext";
+import { API_URL, UPLOADS_URL } from "../apiConfig";
 import { Heart } from "lucide-react";
 
 export default function ProductDetails() {
@@ -14,7 +15,7 @@ export default function ProductDetails() {
 
   const fetchProduct = async () => {
     try {
-      const res = await fetch(`http://localhost:4200/api/products/${id}`);
+      const res = await fetch(`${API_URL}/api/products/${id}`);
       const data = await res.json();
       setProduct(data);
     } catch (err) {
@@ -64,7 +65,7 @@ export default function ProductDetails() {
             <div className="w-full aspect-square bg-gray-50 border border-gray-100 rounded-[40px] flex items-center justify-center overflow-hidden group shadow-2xl shadow-gray-100">
               {product.images && product.images.length > 0 ? (
                 <img 
-                  src={`http://localhost:4200/uploads/${product.images[selectedImage]}`} 
+                  src={`${UPLOADS_URL}/${product.images[selectedImage]}`} 
                   alt={product.name}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
@@ -84,7 +85,7 @@ export default function ProductDetails() {
                     }`}
                   >
                     <img 
-                      src={`http://localhost:4200/uploads/${img}`} 
+                      src={`${UPLOADS_URL}/${img}`} 
                       alt={`${product.name} thumb ${index + 1}`}
                       className="w-full h-full object-cover"
                     />

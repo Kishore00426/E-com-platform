@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Users, Package, Layers, TrendingUp } from 'lucide-react';
+import { API_URL } from '../../apiConfig';
 
 export default function AdminDashboard() {
     const [stats, setStats] = useState({ users: 0, products: 0, categories: 0 });
@@ -12,9 +13,9 @@ export default function AdminDashboard() {
                 const headers = { Authorization: `Bearer ${token}` };
                 
                 const [users, products, categories] = await Promise.all([
-                    fetch('http://localhost:4200/api/admin/users', { headers }).then(res => res.json()),
-                    fetch('http://localhost:4200/api/products').then(res => res.json()),
-                    fetch('http://localhost:4200/api/categories').then(res => res.json())
+                    fetch(`${API_URL}/api/admin/users`, { headers }).then(res => res.json()),
+                    fetch(`${API_URL}/api/products`).then(res => res.json()),
+                    fetch(`${API_URL}/api/categories`).then(res => res.json())
                 ]);
 
                 setStats({

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_URL } from '../apiConfig';
 
 export default function PrivacyPolicy() {
   const [content, setContent] = useState('');
@@ -7,7 +8,7 @@ export default function PrivacyPolicy() {
   useEffect(() => {
     const fetchPrivacyPolicy = async () => {
       try {
-        const res = await fetch('http://localhost:4200/api/site-settings/privacy');
+        const res = await fetch(`${API_URL}/api/site-settings/privacy`);
         if (res.ok) {
           const data = await res.json();
           setContent(data.content);

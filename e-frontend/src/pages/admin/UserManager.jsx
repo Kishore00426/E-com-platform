@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Trash2, Edit3, User, Mail, Shield, Smartphone, MapPin, Search, X } from 'lucide-react';
+import { API_URL } from '../../apiConfig';
 
 export default function UserManager() {
     const [users, setUsers] = useState([]);
@@ -11,7 +12,7 @@ export default function UserManager() {
     const fetchUsers = async () => {
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch('http://localhost:4200/api/admin/users', {
+            const res = await fetch(`${API_URL}/api/admin/users`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             const data = await res.json();
@@ -29,7 +30,7 @@ export default function UserManager() {
         e.preventDefault();
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch(`http://localhost:4200/api/admin/users/${editingUser.id}`, {
+            const res = await fetch(`${API_URL}/api/admin/users/${editingUser.id}`, {
                 method: 'PUT',
                 headers: { 
                     'Content-Type': 'application/json',
@@ -51,7 +52,7 @@ export default function UserManager() {
         if (!window.confirm(`Change user role to ${newRole}?`)) return;
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch(`http://localhost:4200/api/admin/users/${id}/role`, {
+            const res = await fetch(`${API_URL}/api/admin/users/${id}/role`, {
                 method: 'PUT',
                 headers: { 
                     'Content-Type': 'application/json',
@@ -71,7 +72,7 @@ export default function UserManager() {
         if (!window.confirm("Delete this user permanently? This action cannot be undone.")) return;
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch(`http://localhost:4200/api/admin/users/${id}`, {
+            const res = await fetch(`${API_URL}/api/admin/users/${id}`, {
                 method: 'DELETE',
                 headers: { Authorization: `Bearer ${token}` }
             });
