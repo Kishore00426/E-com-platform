@@ -17,5 +17,7 @@ services:
     name: e-frontend
     runtime: static
     rootDir: e-frontend
-    buildCommand: npm install && npm run build
+    envVars:
+      - key: VITE_API_URL
+        value: https://e-com-platform-yq3h.onrender.com
     publishPath: dist
