@@ -1,0 +1,8 @@
+{
+  "name": "e-com-platform-root",
+  "version": "1.0.0",
+  "description": "Root package for Render monorepo deployment",
+  "scripts": {
+    "build": "echo 'Root build satisfied - subfolders will handle their own builds via Blueprint or Root Settings'"
+  }
+}
