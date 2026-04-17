@@ -68,7 +68,13 @@ CRITICAL CONSTRAINTS:
             const lastMessage = messages[messages.length - 1].content;
 
             // Try different models in case one is not available
-            const modelsToTry = ["gemini-1.5-flash", "gemini-1.5-flash-latest", "gemini-pro"];
+            const modelsToTry = [
+                "gemini-1.5-flash", 
+                "gemini-1.5-flash-8b", 
+                "gemini-1.5-flash-latest",
+                "gemini-1.5-pro",
+                "gemini-pro"
+            ];
             let lastErr = null;
 
             for (const modelName of modelsToTry) {
@@ -101,8 +107,12 @@ CRITICAL CONSTRAINTS:
                 } catch (err) {
                     console.error(`Failed with ${modelName}:`, err.message);
                     lastErr = err;
+                    // If we get an auth error, we should stop immediately
+                    if (err.message.includes("401") || err.message.includes("403") || err.message.includes("API_KEY_INVALID")) {
+                        throw new Error("Invalid API Key. Please check your Gemini API key in Google AI Studio.");
+                    }
                     if (err.message.includes("404")) continue; // Try next model
-                    throw err; // Stop if it's a different error (like Auth)
+                    throw err; 
                 }
             }
             throw lastErr;
