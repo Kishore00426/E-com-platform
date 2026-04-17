@@ -12,6 +12,7 @@ import cartRoutes from './routes/cartRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
 import wishlistRoutes from './routes/wishlistRoutes.js';
 import siteRoutes from './routes/siteRoutes.js';
+import aiRoutes from './routes/aiRoutes.js';
 import { verifyToken, isAdmin } from './middleware/auth.js';
 
 const app = express();
@@ -28,6 +29,7 @@ app.use('/api/cart', cartRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/wishlist', wishlistRoutes);
 app.use('/api/site-settings', siteRoutes);
+app.use('/api/ai', aiRoutes);
 
 // --- DB CONNECTION TEST ---
 app.get('/api/health', async (req, res) => {

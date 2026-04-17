@@ -4,6 +4,7 @@ import { WishlistProvider } from "./context/WishlistContext";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import AIChatbot from "./components/AIChatbot";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Homepage from "./pages/Homepage.jsx";
@@ -105,6 +106,7 @@ function AppContent() {
         <Route path="/terms" element={<TermsCondition />} />
       </Routes>
       {!hideHeaderFooter && <Footer />}
+      <AIChatbot />
     </>
   );
 }
